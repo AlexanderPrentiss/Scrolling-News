@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>News LED Controller</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<h1 style="font-family:Arial; color:#999999; text-align: center;"> THE NEWS BOARD </h1>
+		<form class="example"action="http://10.1.57.10:5500/" method="post" style="margin:auto;max-width:300px">             
+			<input type="text" placeholder="Search For News.." name="search">
+			<button type="submit"><i class="fa fa-search"></i></button>
+		</form>
+		<br>
+		<div class="container">
+			<p style="font-family:Arial; font-size: 18px; color: #999999;">What's Been Searched:</p>
+		<ul>
+			{% for Search in searches %}
+			<li>{{Search.searchItem}}</li>
+			{% endfor %}
+		</ul>
+		</div>
+	</body>
+</html>
