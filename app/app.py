@@ -46,7 +46,7 @@ def delete(sqlCommand):
 
 
 def apiRequest(searchInput):
-    url = "https://newsapi.org/v2/top-headlines?q="+(searchInput)+"&searchIn=title,description&sortBy=relevancy&pageSize=1&apiKey=6f834625ec594bcf8cfb1319736b815a" 
+    url = "https://newsapi.org/v2/top-headlines?q="+(searchInput)+"&searchIn=title,description&sortBy=relevancy&pageSize=1&apiKey=YOUR_API_KEY" 
     try:
         uResponse = requests.get(url)
     except request.ConnectionError:
