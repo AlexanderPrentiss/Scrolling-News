@@ -21,11 +21,12 @@ db = SQLAlchemy(app)
 class Search(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     searchItem = db.Column(db.String(100), nullable=False)
+    searchResult = db.Column(db.String(250), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
 
     def __repr__(self):
-        return f'<Search {self.searchItem}>'
+        return f'<Search {self.searchItem}'
 
 def delete(sqlCommand):
     try:
@@ -46,7 +47,7 @@ def delete(sqlCommand):
 
 
 def apiRequest(searchInput):
-    url = "https://newsapi.org/v2/top-headlines?q="+(searchInput)+"&searchIn=title,description&sortBy=relevancy&pageSize=1&apiKey=6f834625ec594bcf8cfb1319736b815a" 
+    url = "https://newsapi.org/v2/everything?q="+(searchInput)+"&language=en&searchIn=title,description&sortBy=relevancy&pageSize=1&apiKey=6f834625ec594bcf8cfb1319736b815a" 
     try:
         uResponse = requests.get(url)
     except request.ConnectionError:
@@ -64,7 +65,7 @@ def apiRequest(searchInput):
 
 
 def arduinoRequest(searchInput):
-        UDP_IP = '10.1.57.85'
+        UDP_IP = '10.1.57.106'
         UDP_PORT = 2390
         title = apiRequest(searchInput)
         MESSAGE = (title)
@@ -79,14 +80,15 @@ def arduinoRequest(searchInput):
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    delete("""DELETE FROM Search WHERE created_at <= datetime('now', '-1 hours') OR ROWID IN (SELECT ROWID FROM Search ORDER BY ROWID DESC LIMIT -1 OFFSET 100)""")
+    delete("""DELETE FROM Search WHERE ROWID IN (SELECT ROWID FROM Search ORDER BY ROWID DESC LIMIT -1 OFFSET 3)""")
     searches = Search.query.all()
 
     if request.method == 'POST':
         searchItem = request.form['search']
-        result = apiRequest(searchItem)
-        if (result != 0):
-            search = Search(searchItem=searchItem)
+        searchResult = apiRequest(searchItem)
+        if (searchResult != 0):
+            search = Search(searchItem=searchItem,
+				searchResult=searchResult)
             db.session.add(search)
             db.session.commit()    
         

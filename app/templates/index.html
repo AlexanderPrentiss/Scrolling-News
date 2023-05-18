@@ -14,12 +14,20 @@
 		</form>
 		<br>
 		<div class="container">
-			<p style="font-family:Arial; font-size: 18px; color: #999999;">What's Been Searched:</p>
-		<ul>
+			<p style="font-family:Arial; font-size: 18px; color: #999999;">What's On Display:</p>
+		<table>
+			<tr>
 			{% for Search in searches %}
-			<li>{{Search.searchItem}}</li>
+				<th>{{Search.searchItem}}</th>
 			{% endfor %}
-		</ul>
+			</tr>
+			<tr>
+			{% for Search in searches %}
+				<td>{{Search.searchResult}}</th>
+			{% endfor %}
+			</tr>
+			
+		</table>
 		</div>
 	</body>
 </html>
