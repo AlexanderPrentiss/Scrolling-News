@@ -65,8 +65,8 @@ def apiRequest(searchInput):
 
 
 def arduinoRequest(searchInput):
-        UDP_IP = '10.1.57.106'
-        UDP_PORT = 2390
+        UDP_IP = '''YOUR IP'''
+        UDP_PORT = '''YOUR PORT'''
         title = apiRequest(searchInput)
         MESSAGE = (title)
         
