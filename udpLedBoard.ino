@@ -20,7 +20,7 @@ char ssid[] = SECRET_SSID;        // your network SSID (name)
 char password[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
 int keyIndex = 0;            // your network key index number (needed only for WEP)
 
-unsigned int localPort = 2390;      // local port to listen on
+unsigned int localPort = '''YOUR PORT''';      // local port to listen on
 
 char packetBuffer[256]; //buffer to hold incoming packet
 char  ReplyBuffer[] = "acknowledged";       // a string to send back
