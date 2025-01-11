@@ -1,6 +1,0 @@
-call plug#begin('~/.vim/plugged')
-
-" lexima auto closing parenthesis, brackets, quotes, etc...
-Plug 'cohama/lexima.vim'
-
-call plug#end()
